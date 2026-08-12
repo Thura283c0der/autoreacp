@@ -1,456 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Boss</title>
-    <!-- Google Font for a clean look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <style>
-        /* ----- reset & base ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Boss</title>
-    <!-- Google Font for a clean look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <style>
-        /* ----- reset & base ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<title>Happy Birthday Baby 🎂</title>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(145deg, #f6f9fc 0%, #e9f0f5 100%);
-            padding: 1.5rem;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* ----- card ----- */
-        .card {
-            max-width: 720px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 3rem;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 20px 50px rgba(0, 20, 40, 0.12),
-                0 8px 24px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            text-align: center;
-            transition: transform 0.25s ease;
-        }
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:
+        radial-gradient(circle at top,#451477,#17052f 45%,#05010d);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-        .card:hover {
-            transform: translateY(-4px);
-        }
+/* Stars */
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
 
-        /* ----- emoji / icon ----- */
-        .icon {
-            font-size: 4.5rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
+@keyframes twinkle{
+    from{
+        opacity:.2;
+        transform:scale(.5);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.5);
+    }
+}
 
-        @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
+/* Birthday Card */
+.card{
+    position:relative;
+    width:90%;
+    max-width:600px;
+    padding:50px 25px;
+    text-align:center;
+    border-radius:30px;
 
-        /* ----- headings ----- */
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #0b1a2b;
-            margin-bottom: 0.35rem;
-        }
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.2);
 
-        .greeting {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: #2c4a6a;
-            background: rgba(44, 74, 106, 0.06);
-            display: inline-block;
-            padding: 0.3rem 1.2rem;
-            border-radius: 100px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(44, 74, 106, 0.08);
-        }
+    backdrop-filter:blur(15px);
 
-        /* ----- message ----- */
-        .message {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #1f3a57;
-            max-width: 480px;
-            margin: 0 auto 2rem auto;
-        }
+    box-shadow:
+        0 0 40px rgba(255,0,180,.25),
+        inset 0 0 30px rgba(255,255,255,.04);
 
-        .message span {
-            font-weight: 600;
-            color: #0b1a2b;
-        }
+    z-index:5;
 
-        /* ----- divider ----- */
-        .divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, #2a7de1, #6a9ff5);
-            border-radius: 10px;
-            margin: 1.5rem auto 2rem auto;
-        }
+    animation:cardIn 1.5s ease;
+}
 
-        /* ----- boss badge ----- */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: #0b1a2b;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.6rem 1.6rem 0.6rem 1.4rem;
-            border-radius: 100px;
-            box-shadow: 0 6px 16px rgba(11, 26, 43, 0.18);
-            margin-bottom: 1rem;
-            letter-spacing: 0.3px;
-        }
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:scale(.7) translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
 
-        .badge .dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
+/* Small Text */
+.small{
+    font-size:16px;
+    letter-spacing:4px;
+    color:#ffd6f7;
+}
 
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(0.85);
-            }
-        }
+/* Main Title */
+h1{
+    margin:15px 0;
 
-        /* ----- meta info (date / time) ----- */
-        .meta {
-            display: flex;
-            justify-content: center;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-            color: #3d5e7e;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 0.7rem 1.5rem;
-            border-radius: 60px;
-            margin-top: 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(4px);
-        }
+    font-size:clamp(42px,10vw,75px);
 
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+    line-height:1;
 
-        .meta-item .label {
-            font-weight: 400;
-            opacity: 0.7;
-        }
+    background:
+        linear-gradient(
+            90deg,
+            #ff4ecd,
+            #ffffff,
+            #ffd45c,
+            #ff4ecd
+        );
 
-        .meta-item .value {
-            font-weight: 600;
-            color: #0b1a2b;
-        }
+    background-size:300%;
 
-        /* ----- responsive ----- */
-        @media (max-width: 600px) {
-            .card {
-                padding: 2rem 1.5rem;
-                border-radius: 2rem;
-            }
+    -webkit-background-clip:text;
+    background-clip:text;
 
-            h1 {
-                font-size: 2.2rem;
-            }
+    color:transparent;
 
-            .icon {
-                font-size: 3.5rem;
-            }
+    animation:shine 4s linear infinite;
+}
 
-            .greeting {
-                font-size: 1.1rem;
-                padding: 0.2rem 1rem;
-            }
+@keyframes shine{
+    to{
+        background-position:300%;
+    }
+}
 
-            .message {
-                font-size: 1rem;
-            }
+/* Name */
+.name{
+    font-size:clamp(26px,7vw,46px);
+    font-weight:bold;
 
-            .meta {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.6rem;
-                padding: 0.8rem 1rem;
-                border-radius: 40px;
-            }
-        }
+    color:#fff;
 
-        @media (max-width: 400px) {
-            h1 {
-                font-size: 1.8rem;
-            }
+    text-shadow:
+        0 0 10px #ff4ecd,
+        0 0 30px #ff4ecd;
 
-            .card {
-                padding: 1.5rem 1rem;
-            }
-        }
-    </style>
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.04);
+
+        text-shadow:
+            0 0 20px #ff4ecd,
+            0 0 50px #ff4ecd;
+    }
+}
+
+/* Message */
+.message{
+    margin-top:20px;
+
+    font-size:17px;
+    line-height:1.8;
+
+    color:#eee;
+}
+
+/* Cake */
+.cake{
+    position:relative;
+
+    width:150px;
+    height:90px;
+
+    margin:45px auto 20px;
+}
+
+.cake-body{
+    position:absolute;
+
+    bottom:0;
+
+    width:150px;
+    height:65px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            #ff72c6,
+            #d92d91
+        );
+
+    box-shadow:
+        0 10px 30px rgba(255,0,150,.4);
+}
+
+.cream{
+    position:absolute;
+
+    top:15px;
+
+    width:150px;
+    height:25px;
+
+    border-radius:50%;
+
+    background:#fff;
+}
+
+.candle{
+    position:absolute;
+
+    width:10px;
+    height:45px;
+
+    background:#ffd45c;
+
+    left:70px;
+    top:-25px;
+
+    border-radius:5px;
+}
+
+.flame{
+    position:absolute;
+
+    width:18px;
+    height:25px;
+
+    background:#ffb300;
+
+    border-radius:50%;
+
+    top:-48px;
+    left:-4px;
+
+    box-shadow:
+        0 0 20px #ff9d00;
+
+    animation:flame .7s infinite alternate;
+}
+
+@keyframes flame{
+    from{
+        transform:scale(.8) rotate(-5deg);
+    }
+
+    to{
+        transform:scale(1.1) rotate(5deg);
+    }
+}
+
+/* Button */
+button{
+    margin-top:20px;
+
+    padding:13px 28px;
+
+    border:none;
+    border-radius:50px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            45deg,
+            #ff2da6,
+            #8e44ff
+        );
+
+    box-shadow:
+        0 0 25px rgba(255,45,166,.5);
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+
+    box-shadow:
+        0 0 40px rgba(255,45,166,.8);
+}
+
+/* Balloons */
+.balloon{
+    position:absolute;
+
+    width:55px;
+    height:70px;
+
+    border-radius:50%;
+
+    bottom:-100px;
+
+    animation:floatUp linear infinite;
+
+    opacity:.9;
+}
+
+.balloon:after{
+    content:"";
+
+    position:absolute;
+
+    width:2px;
+    height:90px;
+
+    background:rgba(255,255,255,.5);
+
+    top:68px;
+    left:50%;
+}
+
+@keyframes floatUp{
+    from{
+        transform:
+            translateY(0)
+            rotate(-8deg);
+    }
+
+    to{
+        transform:
+            translateY(-120vh)
+            rotate(8deg);
+    }
+}
+
+/* Confetti */
+.confetti{
+    position:absolute;
+
+    width:8px;
+    height:15px;
+
+    top:-20px;
+
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+/* Footer */
+.footer{
+    margin-top:25px;
+
+    font-size:12px;
+
+    color:#aaa;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="card">
+<!-- Stars -->
+<script>
 
-        <!-- playful icon -->
-        <div class="icon">👔</div>
+for(let i=0;i<80;i++){
 
-        <!-- main heading -->
-        <h1>Hello Boss</h1>
+    const star=document.createElement("div");
 
-        <!-- friendly greeting -->
-        <div class="greeting">✨ မင်္ဂလာပါ ဆရာကြီး ✨</div>
+    star.className="star";
 
-        <!-- message -->
-        <p class="message">
-            <span>You're in charge.</span> This is your clean, calm, and
-            professional HTML space — ready for whatever you build next.
-        </p>
+    star.style.left=
+        Math.random()*100+"%";
 
-        <!-- divider -->
-        <div class="divider"></div>
+    star.style.top=
+        Math.random()*100+"%";
 
-        <!-- boss badge with live dot -->
-        <div class="badge">
-            <span class="dot"></span>
-            Boss Mode · Active
-        </div>
+    star.style.animationDelay=
+        Math.random()*2+"s";
 
-        <!-- dynamic date & time -->
-        <div class="meta">
-            <span class="meta-item">
-                <span class="label">📅</span>
-                <span class="value" id="dateDisplay">Loading…</span>
-            </span>
-            <span class="meta-item">
-                <span class="label">⏱️</span>
-                <span class="value" id="timeDisplay">Loading…</span>
-            </span>
-            <span class="meta-item">
-                <span class="label">🌐</span>
-                <span class="value">HTML5 · Basic</span>
-            </span>
+    document.body.appendChild(star);
+}
+
+</script>
+
+
+<!-- Balloons -->
+<script>
+
+const balloonColors=[
+    "#ff4ecd",
+    "#6c5ce7",
+    "#00cec9",
+    "#fdcb6e",
+    "#ff7675"
+];
+
+for(let i=0;i<15;i++){
+
+    const balloon=
+        document.createElement("div");
+
+    balloon.className="balloon";
+
+    balloon.style.left=
+        Math.random()*100+"%";
+
+    balloon.style.background=
+        balloonColors[
+            Math.floor(
+                Math.random()*balloonColors.length
+            )
+        ];
+
+    balloon.style.animationDuration=
+        (7+Math.random()*7)+"s";
+
+    balloon.style.animationDelay=
+        Math.random()*7+"s";
+
+    document.body.appendChild(balloon);
+}
+
+</script>
+
+
+<!-- Confetti -->
+<script>
+
+const confettiColors=[
+    "#ff4ecd",
+    "#ffd45c",
+    "#00e5ff",
+    "#ffffff",
+    "#7cff6b"
+];
+
+for(let i=0;i<80;i++){
+
+    const c=
+        document.createElement("div");
+
+    c.className="confetti";
+
+    c.style.left=
+        Math.random()*100+"%";
+
+    c.style.background=
+        confettiColors[
+            Math.floor(
+                Math.random()*confettiColors.length
+            )
+        ];
+
+    c.style.animationDuration=
+        (3+Math.random()*5)+"s";
+
+    c.style.animationDelay=
+        Math.random()*5+"s";
+
+    document.body.appendChild(c);
+}
+
+</script>
+
+
+<!-- Birthday Card -->
+<div class="card">
+
+    <div class="small">
+        🎉 TODAY IS YOUR SPECIAL DAY 🎉
+    </div>
+
+
+    <h1>
+        Happy Birthday
+    </h1>
+
+
+    <!-- Birthday Name -->
+    <div class="name">
+        🎈 Happy Birthday Baby 🎈
+    </div>
+
+
+    <!-- Cake -->
+    <div class="cake">
+
+        <div class="cake-body"></div>
+
+        <div class="cream"></div>
+
+        <div class="candle">
+
+            <div class="flame"></div>
+
         </div>
 
     </div>
 
-    <script>
-        (function updateClock() {
-            const now = new Date();
 
-            // date: e.g. "Aug 13, 2026"
-            const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('en-US', dateOptions);
+    <!-- Message -->
+    <div class="message">
 
-            // time: e.g. "2:45:08 PM"
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-            const timeStr = now.toLocaleTimeString('en-US', timeOptions);
+        May your birthday be filled with
+        <b>love, happiness & beautiful memories.</b>
 
-            document.getElementById('dateDisplay').textContent = dateStr;
-            document.getElementById('timeDisplay').textContent = timeStr;
-        })();
+        <br>
 
-        // update time every second
-        setInterval(() => {
-            const now = new Date();
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-            document.getElementById('timeDisplay').textContent =
-                now.toLocaleTimeString('en-US', timeOptions);
-        }, 1000);
-    </script>
+        Wishing you an amazing year ahead! 💖✨
+
+    </div>
+
+
+    <!-- Button -->
+    <button onclick="celebrate()">
+
+        🎁 Make a Wish
+
+    </button>
+
+
+    <div class="footer">
+
+        Made with ❤️ just for you
+
+    </div>
+
+</div>
+
+
+<script>
+
+function celebrate(){
+
+    /* Confetti Explosion */
+
+    for(let i=0;i<80;i++){
+
+        const c=
+            document.createElement("div");
+
+        c.style.position="fixed";
+
+        c.style.width="8px";
+
+        c.style.height="14px";
+
+        c.style.background=
+            `hsl(${Math.random()*360},100%,70%)`;
+
+        c.style.left="50%";
+
+        c.style.top="50%";
+
+        c.style.zIndex="100";
+
+        document.body.appendChild(c);
+
+
+        const angle=
+            Math.random()*Math.PI*2;
+
+        const distance=
+            150+Math.random()*400;
+
+        const x=
+            Math.cos(angle)*distance;
+
+        const y=
+            Math.sin(angle)*distance;
+
+
+        c.animate(
+
+            [
+                {
+                    transform:
+                        "translate(0,0) rotate(0deg)",
+                    opacity:1
+                },
+
+                {
+                    transform:
+                        `translate(${x}px,${y}px) rotate(720deg)`,
+                    opacity:0
+                }
+            ],
+
+            {
+                duration:
+                    1200+Math.random()*800,
+
+                easing:
+                    "cubic-bezier(.2,.8,.3,1)"
+            }
+
+        );
+
+
+        setTimeout(
+            ()=>{
+                c.remove();
+            },
+            2200
+        );
+
+    }
+
+
+    alert(
+        "🎂 Happy Birthday Baby! 🎉💖 Make a wish!"
+    );
+
+}
+
+</script>
 
 </body>
-</html>            background: linear-gradient(145deg, #f6f9fc 0%, #e9f0f5 100%);
-            padding: 1.5rem;
-        }
-
-        /* ----- card ----- */
-        .card {
-            max-width: 720px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 3rem;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 20px 50px rgba(0, 20, 40, 0.12),
-                0 8px 24px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            text-align: center;
-            transition: transform 0.25s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-        }
-
-        /* ----- emoji / icon ----- */
-        .icon {
-            font-size: 4.5rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        /* ----- headings ----- */
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #0b1a2b;
-            margin-bottom: 0.35rem;
-        }
-
-        .greeting {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: #2c4a6a;
-            background: rgba(44, 74, 106, 0.06);
-            display: inline-block;
-            padding: 0.3rem 1.2rem;
-            border-radius: 100px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(44, 74, 106, 0.08);
-        }
-
-        /* ----- message ----- */
-        .message {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #1f3a57;
-            max-width: 480px;
-            margin: 0 auto 2rem auto;
-        }
-
-        .message span {
-            font-weight: 600;
-            color: #0b1a2b;
-        }
-
-        /* ----- divider ----- */
-        .divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, #2a7de1, #6a9ff5);
-            border-radius: 10px;
-            margin: 1.5rem auto 2rem auto;
-        }
-
-        /* ----- boss badge ----- */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: #0b1a2b;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.6rem 1.6rem 0.6rem 1.4rem;
-            border-radius: 100px;
-            box-shadow: 0 6px 16px rgba(11, 26, 43, 0.18);
-            margin-bottom: 1rem;
-            letter-spacing: 0.3px;
-        }
-
-        .badge .dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(0.85);
-            }
-        }
-
-        /* ----- meta info (date / time) ----- */
-        .meta {
-            display: flex;
-            justify-content: center;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-            color: #3d5e7e;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 0.7rem 1.5rem;
-            border-radius: 60px;
-            margin-top: 1.8rem;
+</html>
