@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoxCPM Voice Studio</title>
+  <meta name="description" content="AI Text-to-Speech & Voice Cloning Studio powered by VoxCPM on Hugging Face" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Padauk:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient background glow -->
+  <div class="bg-glow glow-1" aria-hidden="true"></div>
+  <div class="bg-glow glow-2" aria-hidden="true"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10v4a7 7 0 0 0 14 0v-4a7 7 0 0 0-14 0Z"/>
+            <path d="M17 8v2a4 4 0 0 0 4 4"/>
+            <path d="M7 3v7"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>VOXCPM <span class="brand-accent">VOICE STUDIO</span></h1>
+          <p class="brand-sub">AI Text-to-Speech & Voice Cloning</p>
+        </div>
+      </div>
+      <div class="brand-tag ai-tag">AI POWERED</div>
+    </div>
+  </header>
+
+  <main class="app">
+    <!-- Left control panel -->
+    <aside class="panel controls">
+      <form id="studio-form" autocomplete="off">
+
+        <!-- Status bar -->
+        <section class="section status-section" id="status-section" hidden>
+          <div class="status-chip" id="status-chip">
+            <svg class="spin" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+            </svg>
+            <span id="status-text">Connecting…</span>
+          </div>
+          <div class="progress-track" id="progress-track" hidden>
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </section>
+
+        <!-- Mode tabs -->
+        <section class="section">
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>GENERATION MODE <span class="my-label">ခုံတ်နည်း</span></h2>
+          </div>
+          <div class="tabs" role="tablist">
+            <button type="button" class="tab active" data-mode="tts" role="tab" aria-selected="true">
+              <span class="tab-icon">✍️</span>
+              <span class="tab-label">Text to Speech</span>
+              <span class="tab-sub">စာသားမှ အသံ</span>
+            </button>
+            <button type="button" class="tab" data-mode="clone" role="tab" aria-selected="false">
+              <span class="tab-icon">🎙️</span>
+              <span class="tab-label">Voice Cloning</span>
+              <span class="tab-sub">အသံ ပွားခြင်း</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Text input -->
+        <section class="section">
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>TEXT INPUT <span class="my-label">ပြောမည့် စာသား</span></h2>
+          </div>
+          <textarea id="text-input" rows="6" maxlength="2000" placeholder="Enter the text you want to speak… (English & Chinese work best)"></textarea>
+          <div class="field-hint"><span id="char-count">0</span> / 2000 characters</div>
+        </section>
+
+        <!-- Voice style description -->
+        <section class="section" id="style-section">
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>VOICE STYLE <span class="my-label">အသံ ပုံစံဖော်ပြချက်</span></h2>
+          </div>
+          <input id="style-input" type="text" maxlength="300" placeholder='e.g. "A warm male voice speaking slowly"' />
+          <div class="style-chips" id="style-chips">
+            <button type="button" class="chip" data-style='A warm male voice speaking slowly'>🧔 Warm Male</button>
+            <button type="button" class="chip" data-style='A soft female voice with a gentle tone'>👩 Soft Female</button>
+            <button type="button" class="chip" data-style='A deep dramatic voice like a movie trailer narrator'>🎬 Dramatic Narrator</button>
+            <button type="button" class="chip" data-style='A cheerful energetic voice with fast pacing'>⚡ Energetic</button>
+            <button type="button" class="chip" data-style='A calm soothing voice for bedtime storytelling'>🌙 Soothing</button>
+            <button type="button" class="chip" data-style='A young excited child-like voice'>🧒 Childlike</button>
+          </div>
+          <div class="field-hint">Describe the voice you want. Used for voice design mode (no reference audio).</div>
+        </section>
+
+        <!-- Reference audio (cloning) -->
+        <section class="section" id="clone-section" hidden>
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>REFERENCE AUDIO <span class="my-label">နမူနာ အသံဖိုင်</span></h2>
+          </div>
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="audio-input" accept="audio/*" hidden />
+            <div class="dropzone-body" id="dropzone-body">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <div>
+                <p class="dz-title">Drop audio file or <span class="accent">browse</span></p>
+                <p class="dz-sub">MP3 / WAV / OGG · max 50 seconds</p>
+              </div>
+            </div>
+            <div class="dz-file" id="dz-file" hidden>
+              <span class="dz-name" id="dz-name">sample.mp3</span>
+              <span class="dz-meta" id="dz-meta">2.4 MB · 32s</span>
+              <button type="button" class="dz-remove" id="dz-remove" title="Remove">✕</button>
+            </div>
+          </label>
+          <div class="field-hint">Short clip of the voice you want to clone (clearer audio = better cloning).</div>
+        </section>
+
+        <!-- Advanced options -->
+        <section class="section">
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>OPTIONS <span class="my-label">ရွေးချယ်စရာများ</span></h2>
+          </div>
+          <div class="slider-row">
+            <div class="slider-head">
+              <label for="cfg-slider">Creativity <span class="my-label">(ဖန်တီးမှုပမာဏ)</span></label>
+              <span class="slider-val" id="cfg-val">2.0</span>
+            </div>
+            <input type="range" id="cfg-slider" min="1" max="3" step="0.1" value="2" />
+            <div class="slider-ticks"><span>1.0 Stable</span><span>3.0 Expressive</span></div>
+          </div>
+          <label class="check-row">
+            <span class="toggle" aria-hidden="true"><i></i></span>
+            <span>Text normalization <span class="my-label">(စာလုံးဖွဲ့ ဖတ်ရန်)</span></span>
+            <input type="checkbox" id="opt-normalize" />
+          </label>
+          <label class="check-row" id="denoise-row" hidden>
+            <span class="toggle" aria-hidden="true"><i></i></span>
+            <span>Denoise reference audio <span class="my-label">(နောက်ခံဆူညံသံ ဖယ်ရန်)</span></span>
+            <input type="checkbox" id="opt-denoise" />
+          </label>
+        </section>
+
+        <!-- Output type -->
+        <section class="section">
+          <div class="section-head">
+            <span class="rule"></span>
+            <h2>OUTPUT <span class="my-label">ထွက်ရှိမှု</span></h2>
+          </div>
+          <div class="output-card selected" id="output-card">
+            <div class="oc-icon">🎧</div>
+            <div>
+              <p class="oc-title">Generated Audio</p>
+              <p class="oc-sub">48kHz studio-quality WAV</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Generate button -->
+        <button type="submit" class="generate-btn" id="generate-btn">
+          <span id="btn-content">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 2 .5 5.5"/><path d="m2 9 4 4"/><path d="m22 9-4 4"/><circle cx="12" cy="14" r="5"/><path d="m12 19 .5 5.5"/></svg>
+            Generate Voice <span class="my-label">အသံထုတ်မည်</span>
+          </span>
+          <span id="btn-loading" hidden>
+            <svg class="spin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+            Generating… <span class="my-label">ထုတ်နေဆဲ…</span>
+          </span>
+        </button>
+      </form>
+    </aside>
+
+    <!-- Right preview panel -->
+    <section class="panel preview">
+      <div class="preview-head">
+        <h2>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg>
+          Preview <span class="my-label">ကြိုကြည့်ရန်</span>
+        </h2>
+        <span class="env-chip" id="env-chip">HF SPACE</span>
+      </div>
+
+      <div class="preview-card">
+        <!-- Empty state -->
+        <div class="empty-state" id="empty-state">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="empty-icon">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+          <p class="es-title" id="es-title">No audio yet</p>
+          <p class="es-sub" id="es-sub">Enter text and hit Generate to create speech</p>
+        </div>
+
+        <!-- Result state -->
+        <div class="result-state" id="result-state" hidden>
+          <div class="wave-viz" id="wave-viz" aria-hidden="true"></div>
+          <audio id="audio-player" controls></audio>
+          <div class="result-meta" id="result-meta">
+            <span id="meta-size">—</span>
+            <span id="meta-dur">—</span>
+            <span id="meta-mode">—</span>
+          </div>
+          <div class="result-actions">
+            <a id="download-btn" class="dl-btn" download="voxcpm_voice.webm">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Audio <span class="my-label">ဒေါင်းလုဒ်</span>
+            </a>
+            <button type="button" class="btn-ghost" id="reset-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              New Generation
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info / how it works -->
+      <div class="info-card">
+        <h3>How it works</h3>
+        <p>VoxCPM is an open-source tokenizer-free TTS model. Your text and voice description are sent to the official <a href="https://huggingface.co/spaces/openbmb/VoxCPM-Demo" target="_blank" rel="noopener">Hugging Face VoxCPM Demo</a> space, which generates studio-quality speech for free.</p>
+        <div class="steps">
+          <div class="step"><span class="step-n">1</span><span>Type your text</span></div>
+          <div class="step"><span class="step-n">2</span><span>Pick a voice style or clone one</span></div>
+          <div class="step"><span class="step-n">3</span><span>Play &amp; download the result</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>VoxCPM Voice Studio · powered by <a href="https://huggingface.co/spaces/openbmb/VoxCPM-Demo" target="_blank" rel="noopener">openbmb/VoxCPM-Demo</a> on Hugging Face</span>
+      <span class="footer-sub">Static site — runs in your browser, no server needed</span>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
